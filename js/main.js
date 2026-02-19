@@ -27,26 +27,37 @@ document.addEventListener('DOMContentLoaded', () => {
   const navClose = document.getElementById('nav-close');
   const navLinks = document.querySelectorAll('.nav-list a');
   
-  if (navToggle && nav) {
-    navToggle.addEventListener('click', () => {
-      nav.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    });
+  // Criar overlay para fechar menu ao clicar fora
+  const overlay = document.createElement('div');
+  overlay.className = 'nav-overlay';
+  document.body.appendChild(overlay);
+  
+  function closeNav() {
+    nav.classList.remove('active');
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
   }
   
-  if (navClose && nav) {
-    navClose.addEventListener('click', () => {
-      nav.classList.remove('active');
-      document.body.style.overflow = '';
-    });
+  function openNav() {
+    nav.classList.add('active');
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
   }
+  
+  if (navToggle && nav) {
+    navToggle.addEventListener('click', openNav);
+  }
+  
+  if (navClose) {
+    navClose.addEventListener('click', closeNav);
+  }
+  
+  // Fechar ao clicar no overlay
+  overlay.addEventListener('click', closeNav);
   
   // Close nav on link click
   navLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      nav.classList.remove('active');
-      document.body.style.overflow = '';
-    });
+    link.addEventListener('click', closeNav);
   });
   
   // Smooth scroll for anchor links

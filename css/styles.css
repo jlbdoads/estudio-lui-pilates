@@ -756,6 +756,37 @@ img {
     --space-lg: 3rem;
   }
   
+  /* Hero mobile */
+  .hero-content {
+    padding: 0 var(--space-sm);
+  }
+  
+  .hero-cta {
+    flex-direction: column;
+    padding: 0 var(--space-sm);
+  }
+  
+  .hero-cta .btn {
+    width: 100%;
+    text-align: center;
+  }
+  
+  /* Overlay do menu */
+  .nav-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition);
+    z-index: 999;
+  }
+  
+  .nav-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+  
   .nav-toggle {
     display: flex;
   }
