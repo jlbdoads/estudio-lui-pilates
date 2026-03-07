@@ -80,23 +80,29 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
   
-  // Form submission
-  const contactForm = document.getElementById('contact-form');
-  if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      // Simple validation
-      const name = this.querySelector('#name').value;
-      const email = this.querySelector('#email').value;
-      
-      if (name && email) {
-        // Show success (replace with actual form handler)
-        alert('Obrigada! Em breve entraremos em contato.');
-        this.reset();
+  // Meta Pixel Event Tracking
+  const btnAgendarList = document.querySelectorAll('.btn-agendar');
+  btnAgendarList.forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (typeof fbq === 'function') {
+        fbq('track', 'AddToCart', {
+          content_name: 'Lui Start',
+        });
       }
     });
-  }
+  });
+
+  // Track Scroll PageView (optional basic implementation)
+  let scrolledPageView = false;
+  window.addEventListener('scroll', () => {
+    if (!scrolledPageView && window.scrollY > window.innerHeight / 2) {
+      if (typeof fbq === 'function') {
+        // Just as an extra event for "Scroll", the main PageView is in head
+        fbq('trackCustom', 'ScrollPageView');
+      }
+      scrolledPageView = true;
+    }
+  });
   
   // Intersection Observer for animations
   const observerOptions = {
